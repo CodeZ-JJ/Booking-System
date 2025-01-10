@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venue Booking</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    /* Header Section */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-image: url('https://via.placeholder.com/1920x600'); /* Replace with your background image */
+      background-size: cover;
+      background-position: center;
+      padding: 50px;
+      height: 100vh;
+      color: white;
+    }
+
+    /* Left Side: Text Content */
+    .header-text {
+      max-width: 50%;
+    }
+
+    .header-text h1 {
+      font-size: 3em;
+      margin: 0 0 20px;
+    }
+
+    .header-text p {
+      font-size: 1.2em;
+      margin: 0 0 30px;
+    }
+
+    .header-text button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .header-text button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Right Side: Booking Section */
+    #booking-section {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 350px;
+  height: 600px; /* Adjusted height to fit all content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers content vertically */
+  transition: all 0.3s ease; /* Smooth transitions for resizing */
+}
+
+    #booking-section h2 {
+      color: #007bff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Venue Options */
+.option {
+  width: 90%; /* Ensure the options are consistently sized */
+  display: flex; /* Use flexbox to place name and price side by side */
+  justify-content: space-between; /* Space out the name and price */
+  align-items: center; /* Vertically align the content */
+  background-color: #f1f9ff;
+  border: 1px solid #007bff;
+  border-radius: 8px;
+  padding: 15px; /* Increase padding for a larger div */
+  margin: 15px 0; /* Add more spacing between options */
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.option:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.option h3 {
+  margin: 0;
+  font-size: 1.5em; /* Slightly larger font for better readability */
+  color: #007bff;
+}
+
+.option p {
+  margin: 0;
+  font-size: 1.2em; /* Slightly larger font for price */
+  color: #333;
+}
+
+    form input, form select, form button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    form button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    form button:hover {
+      background-color: #0056b3;
+    }
+
+    form .back-button {
+      background-color: #6c757d;
+    }
+
+    form .back-button:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <!-- Left Side: Text Content -->
+    <div class="header-text">
+      <h1>Welcome to WaterLand</h1>
+      <p>The best venues for your events and activities!</p>
+      <button onclick="scrollToBooking()">Explore Packages</button>
+    </div>
+
+    <!-- Right Side: Booking Section -->
+    <div id="booking-section">
+      <!-- Venue Options -->
+      <div id="options">
+        <h2 class="book">Select a Venue</h2>
+        <div class="option" onclick="showBookingForm('Football Pitch', '$100/hr')">
+            <h3>Football Pitch</h3>
+            <p>$100/hr</p>
+          </div>
+          <div class="option" onclick="showBookingForm('Palm Yard', '$200/hr')">
+            <h3>Palm Yard</h3>
+            <p>$200/hr</p>
+          </div>
+          <div class="option" onclick="showBookingForm('Hall Yard', '$300/hr')">
+            <h3>Hall Yard</h3>
+            <p>$300/hr</p>
+          </div>          
+      </div>
+
+      <!-- Booking Form -->
+      <div id="booking-form" style="display: none;">
+        <h2 id="venue-name"></h2>
+        <form action="your-backend-script.php" method="post">
+          <input type="hidden" id="venue" name="venue" value="">
+          <input type="text" name="name" placeholder="Full Name" required>
+          <input type="email" name="email" placeholder="Email Address" required>
+          <input type="tel" name="phone" placeholder="Phone Number" required>
+          <input type="date" name="date" required>
+          <input type="number" name="duration" placeholder="Duration (hours)" required>
+          <textarea name="special_requests" placeholder="Special Requests"></textarea>
+          <button type="submit">Book Now</button>
+          <button type="button" class="back-button" onclick="goBack()">Go Back</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    // JavaScript to handle form switching
+    function showBookingForm(venue, price) {
+      document.getElementById('options').style.display = 'none';
+      document.getElementById('booking-form').style.display = 'block';
+      document.getElementById('venue-name').textContent = venue;
+      document.getElementById('venue').value = venue;
+    }
+
+    function goBack() {
+      document.getElementById('options').style.display = 'block';
+      document.getElementById('booking-form').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
